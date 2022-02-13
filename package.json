@@ -1,6 +1,19 @@
 {
+  "name": "pang",
+  "version": "0.1.0",
+  "author": {
+    "name": "Mateusz Wojtyna"
+  },
+  "source": "src/index.html",
+  
+  "scripts": {
+    "start": "npx parcel --open"
+  },
   "dependencies": {
     "excalibur": "^0.25.3",
     "typescript": "^4.5.5"
+  },
+  "devDependencies": {
+    "parcel": "^2.3.1"
   }
 }
