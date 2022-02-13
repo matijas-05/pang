@@ -522,7 +522,6 @@ function hmrAcceptRun(bundle, id) {
 var _excalibur = require("excalibur");
 const game = new _excalibur.Engine();
 game.start();
-console.log("started!");
 
 },{"excalibur":"bDskv"}],"bDskv":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
