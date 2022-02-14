@@ -1,5 +1,17 @@
-import { Engine } from "excalibur";
+import { DisplayMode, Engine } from "excalibur";
+import { Player } from "./player_controller";
 
 // Start game
-export const game = new Engine();
+class Game extends Engine{
+   constructor() {
+        super({
+            displayMode: DisplayMode.FillScreen
+        });
+        
+        const player = new Player();
+        this.add(player);
+   }
+}
+
+export const game = new Game();
 game.start();

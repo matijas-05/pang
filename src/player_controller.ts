@@ -1,11 +1,16 @@
-import { Actor, Color } from "excalibur";
-import { game } from "./game";
+import { Actor, CollisionType, Color, Vector } from "excalibur";
 
-const player = new Actor({
-    x: 0,
-    y: 0,
-    width: 20,
-    height: 200,
-    color: Color.Red
-})
-game.add(player);
+export class Player extends Actor{
+    constructor(){
+        super({
+            x: 0,
+            y: 0,
+            width: 75,
+            height: 200,
+            color: Color.Red,
+            collisionType: CollisionType.Passive
+        })
+    }
+}
+
+console.log("player");

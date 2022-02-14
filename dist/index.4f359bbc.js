@@ -519,17 +519,24 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"85nBA":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Player", ()=>Player
+);
 var _excalibur = require("excalibur");
-var _game = require("./game");
-const player = new _excalibur.Actor({
-    x: 0,
-    y: 0,
-    width: 20,
-    height: 200,
-    color: _excalibur.Color.Red
-});
-_game.game.add(player);
+class Player extends _excalibur.Actor {
+    constructor(){
+        super({
+            x: 0,
+            y: 0,
+            width: 75,
+            height: 200,
+            color: _excalibur.Color.Red,
+            collisionType: _excalibur.CollisionType.Passive
+        });
+    }
+}
 
-},{"excalibur":"bDskv","./game":"edeGs"}]},["4IvjC","85nBA"], "85nBA", "parcelRequirea580")
+},{"excalibur":"bDskv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["4IvjC","85nBA"], "85nBA", "parcelRequirea580")
 
 //# sourceMappingURL=index.4f359bbc.js.map

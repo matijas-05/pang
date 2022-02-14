@@ -524,10 +524,21 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "game", ()=>game
 );
 var _excalibur = require("excalibur");
-const game = new _excalibur.Engine();
+var _playerController = require("./player_controller");
+// Start game
+class Game extends _excalibur.Engine {
+    constructor(){
+        super({
+            displayMode: _excalibur.DisplayMode.FillScreen
+        });
+        const player = new _playerController.Player();
+        this.add(player);
+    }
+}
+const game = new Game();
 game.start();
 
-},{"excalibur":"bDskv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bDskv":[function(require,module,exports) {
+},{"excalibur":"bDskv","./player_controller":"85nBA","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bDskv":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ActionContext", ()=>__webpack_exports__ActionContext
@@ -26795,6 +26806,26 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}]},["f9UgV","edeGs"], "edeGs", "parcelRequirea580")
+},{}],"85nBA":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Player", ()=>Player
+);
+var _excalibur = require("excalibur");
+class Player extends _excalibur.Actor {
+    constructor(){
+        super({
+            x: 0,
+            y: 0,
+            width: 75,
+            height: 200,
+            color: _excalibur.Color.Red,
+            collisionType: _excalibur.CollisionType.Passive
+        });
+    }
+}
+console.log("player");
+
+},{"excalibur":"bDskv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["f9UgV","edeGs"], "edeGs", "parcelRequirea580")
 
 //# sourceMappingURL=index.a998808b.js.map
