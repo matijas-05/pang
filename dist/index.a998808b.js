@@ -519,11 +519,15 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"edeGs":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "game", ()=>game
+);
 var _excalibur = require("excalibur");
 const game = new _excalibur.Engine();
 game.start();
 
-},{"excalibur":"bDskv"}],"bDskv":[function(require,module,exports) {
+},{"excalibur":"bDskv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bDskv":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ActionContext", ()=>__webpack_exports__ActionContext
