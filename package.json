@@ -5,9 +5,9 @@
     "name": "Mateusz Wojtyna"
   },
   "source": "src/index.html",
-  "type": "module",
   "scripts": {
     "start": "npx parcel",
+    "build": "npx parcel build",
     "test": "jest"
   },
   "dependencies": {
@@ -15,8 +15,8 @@
   },
   "devDependencies": {
     "@types/jest": "^27.4.0",
+    "@types/parcel-env": "^0.0.1",
     "jest": "^27.5.1",
-    "madge": "^5.0.1",
     "parcel": "^2.3.1"
   }
 }

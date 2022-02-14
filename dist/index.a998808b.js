@@ -525,18 +525,28 @@ parcelHelpers.export(exports, "game", ()=>game
 );
 var _excalibur = require("excalibur");
 var _playerController = require("./player_controller");
-// Start game
+// Force parcel to reload page when saving .ts file
+if (module.hot) module.hot.dispose(()=>{
+    window.location.reload();
+    throw 'whatever';
+});
 class Game extends _excalibur.Engine {
     constructor(){
         super({
-            displayMode: _excalibur.DisplayMode.FillScreen
+            width: 800,
+            height: 600,
+            displayMode: _excalibur.DisplayMode.FitScreen
         });
+        // Create player
         const player = new _playerController.Player();
         this.add(player);
     }
 }
 const game = new Game();
 game.start();
+// Setup physics
+_excalibur.Physics.useArcadePhysics();
+_excalibur.Physics.acc = _excalibur.Vector.Down.scale(9.807);
 
 },{"excalibur":"bDskv","./player_controller":"85nBA","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bDskv":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -26812,6 +26822,7 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Player", ()=>Player
 );
 var _excalibur = require("excalibur");
+var _game = require("./game");
 class Player extends _excalibur.Actor {
     constructor(){
         super({
@@ -26820,12 +26831,16 @@ class Player extends _excalibur.Actor {
             width: 75,
             height: 200,
             color: _excalibur.Color.Red,
-            collisionType: _excalibur.CollisionType.Passive
+            collisionType: _excalibur.CollisionType.Active
         });
     }
+    onInitialize(_engine) {
+        this.pos.y = _game.game.drawHeight;
+    }
+    update(engine, delta) {
+    }
 }
-console.log("player");
 
-},{"excalibur":"bDskv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["f9UgV","edeGs"], "edeGs", "parcelRequirea580")
+},{"excalibur":"bDskv","./game":"edeGs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["f9UgV","edeGs"], "edeGs", "parcelRequirea580")
 
 //# sourceMappingURL=index.a998808b.js.map

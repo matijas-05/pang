@@ -1,16 +1,22 @@
-import { Actor, CollisionType, Color, Vector } from "excalibur";
+import { Actor, CollisionType, Color, Engine } from "excalibur";
+import { game } from "./game";
 
-export class Player extends Actor{
-    constructor(){
+export class Player extends Actor {
+    constructor() {
         super({
             x: 0,
             y: 0,
             width: 75,
             height: 200,
             color: Color.Red,
-            collisionType: CollisionType.Passive
+            collisionType: CollisionType.Active
         })
     }
-}
 
-console.log("player");
+    onInitialize(_engine: Engine): void {
+        this.pos.y = game.drawHeight;
+    }
+    update(engine: Engine, delta: number): void {
+
+    }
+}
