@@ -1,4 +1,5 @@
 import * as ex from "excalibur";
+import { DevTool } from "@excaliburjs/dev-tools"
 import { Player } from "./player_controller";
 import { Ground } from "./environment/ground";
 import "regenerator-runtime/runtime" // needed to force parcel to understand async/await inside excalibur
@@ -27,6 +28,7 @@ class Game extends ex.Engine {
 
 // Start game
 export const game = new Game();
+const devTool = new DevTool(game);
 game.start();
 
 // Setup physics
