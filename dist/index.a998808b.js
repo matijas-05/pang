@@ -551,7 +551,7 @@ const devTool = new _devTools.DevTool(game);
 game.start();
 // Setup physics
 _excalibur.Physics.useArcadePhysics();
-_excalibur.Physics.acc = _excalibur.Vector.Down.scale(9.807);
+_excalibur.Physics.acc = _excalibur.vec(0, 9.807);
 
 },{"excalibur":"bDskv","./player_controller":"85nBA","./environment/ground":"8JOey","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@excaliburjs/dev-tools":"jinSO"}],"bDskv":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -26827,34 +26827,35 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Player", ()=>Player
 );
 var _excalibur = require("excalibur");
+var _game = require("./game");
 class Player extends _excalibur.Actor {
-    // Methods
     constructor(){
         super({
+            name: "Player",
             width: 30,
             height: 100,
             color: _excalibur.Color.Red,
-            collisionType: _excalibur.CollisionType.Active
+            collisionType: _excalibur.CollisionType.Fixed
         });
-        // Properties
         this.movementSpeed = 50;
     }
     onInitialize(_engine) {
-        this.transform.pos = new _excalibur.Vector(_engine.halfCanvasWidth, _engine.canvasHeight - this.height);
+        this.transform.pos = _excalibur.vec(_engine.halfCanvasWidth, _engine.canvasHeight - this.height);
     }
     update(engine, delta) {
         // Needed for 'actions' to work
         super.update(engine, delta);
-        // Movement
+        // Reset movement
         this.actions.clearActions();
         let movement = 0;
-        if (engine.input.keyboard.isHeld(_excalibur.Input.Keys.D)) movement = 1;
-        else if (engine.input.keyboard.isHeld(_excalibur.Input.Keys.A)) movement = -1;
+        // Prevent player from leaving the screen
+        if (engine.input.keyboard.isHeld(_excalibur.Input.Keys.D) && this.pos.x < _game.game.canvasWidth - this.width / 2) movement = 1;
+        else if (engine.input.keyboard.isHeld(_excalibur.Input.Keys.A) && this.pos.x > this.width / 2) movement = -1;
         this.actions.moveBy(movement, 0, this.movementSpeed * delta);
     }
 }
 
-},{"excalibur":"bDskv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8JOey":[function(require,module,exports) {
+},{"excalibur":"bDskv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./game":"edeGs"}],"8JOey":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Ground", ()=>Ground
@@ -26864,6 +26865,7 @@ var _game = require("../game");
 class Ground extends _excalibur.Actor {
     constructor(){
         super({
+            name: "Ground",
             width: _game.game.canvasWidth,
             height: 50,
             collisionType: _excalibur.CollisionType.Fixed,
@@ -26871,8 +26873,7 @@ class Ground extends _excalibur.Actor {
         });
     }
     onInitialize(_engine) {
-        this.transform.pos = new _excalibur.Vector(_engine.halfCanvasWidth, _engine.canvasHeight - this.height / 2);
-        this.width;
+        this.transform.pos = _excalibur.vec(_engine.halfCanvasWidth, _engine.canvasHeight - this.height / 2);
     }
 }
 

@@ -33,4 +33,4 @@ game.start();
 
 // Setup physics
 ex.Physics.useArcadePhysics();
-ex.Physics.acc = ex.Vector.Down.scale(9.807);
+ex.Physics.acc = ex.vec(0, 9.807);
