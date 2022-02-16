@@ -1,6 +1,6 @@
 import * as ex from "excalibur";
 import { DevTool } from "@excaliburjs/dev-tools"
-import { Player } from "./player_controller";
+import { Player } from "./player/player_controller";
 import { Ground } from "./environment/ground";
 import "regenerator-runtime/runtime" // needed to force parcel to understand async/await inside excalibur
 
@@ -19,17 +19,18 @@ class Game extends ex.Engine {
 			displayMode: ex.DisplayMode.FitScreen
 		});
 	}
-	onInitialize(_engine: ex.Engine): void {
-		// Add actors
-		_engine.add(new Player());
-		_engine.add(new Ground());
-	}
 }
 
 // Start game
 export const game = new Game();
 const devTool = new DevTool(game);
 game.start();
+
+// Add actors
+export const player = new Player();
+export const ground = new Ground();
+game.add(player);
+game.add(ground);
 
 // Setup physics
 ex.Physics.useArcadePhysics();
