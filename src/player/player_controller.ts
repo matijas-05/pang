@@ -1,6 +1,7 @@
 import * as ex from "excalibur";
 import { game } from "../game";
 import { Anchor } from "./anchor";
+import Tags from "../utils/tags";
 
 export class Player extends ex.Actor {
 	get movementSpeed() { return 50 };
@@ -18,6 +19,7 @@ export class Player extends ex.Actor {
 
 	onInitialize(_engine: ex.Engine): void {
 		this.transform.pos = ex.vec(_engine.halfCanvasWidth, _engine.canvasHeight - this.height);
+		this.addTag(Tags.Player);
 		_engine.add(this.weapon);
 	}
 	update(engine: ex.Engine, delta: number): void {

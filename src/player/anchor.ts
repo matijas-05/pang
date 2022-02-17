@@ -1,9 +1,10 @@
 import * as ex from "excalibur";
-import { game, player, ground } from "../game";
+import Tags from "../utils/tags";
+import { game, player } from "../game";
 
 export class Anchor extends ex.Actor {
 
-	get speed() { return 400; }
+	get speed() { return 10; }
 
 	constructor() {
 		super({
@@ -17,16 +18,28 @@ export class Anchor extends ex.Actor {
 	}
 
 	update(_engine: ex.Engine): void {
-		if (this.actions.getQueue().getActions().length == 0) this.pos = player.pos;
-		if (this.pos.y < this.height / 2) this.onCollision();
+		if (!this.actions.getQueue().hasNext()) this.pos = player.pos;
+		if (this.pos.y < this.height / 2) this.reset();		// Also reset when reached top edge of the screen
 	}
 	shoot() {
 		this.graphics.visible = true;
-		this.actions.moveTo(ex.vec(this.pos.x, -this.height), this.speed);
-		this.on("collisionstart", () => this.onCollision());
+
+		// Stretch anchor vertically until it collides
+		let newScale = 0;
+		this.actions.repeatForever(ctx => {
+			ctx.scaleTo(ex.vec(1, ++newScale), ex.vec(1, this.speed));
+		})
+
+		// Reset when collided with anything other than the player
+		this.on("collisionstart", (col) => {
+			if(!col.other.hasTag(Tags.Player))
+				this.reset();
+		});
 	}
-	onCollision() {
+
+	reset() {
 		this.graphics.visible = false;
+		this.scale = ex.Vector.One;
 		this.actions.clearActions();
 	}
 }

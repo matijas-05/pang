@@ -2,7 +2,7 @@ import * as ex from "excalibur";
 import { DevTool } from "@excaliburjs/dev-tools"
 import { Player } from "./player/player_controller";
 import { Ground } from "./environment/ground";
-import "regenerator-runtime/runtime" // needed to force parcel to understand async/await inside excalibur
+import "regenerator-runtime/runtime" // Force parcel to understand async/await inside excalibur
 
 // Force parcel to reload page when saving .ts file
 if (module.hot) {
