@@ -1,20 +1,23 @@
 {
-  "name": "pang",
-  "version": "0.1.0",
-  "author": {
-    "name": "Mateusz Wojtyna"
-  },
-  "source": "src/index.html",
-  "scripts": {
-    "start": "npx parcel",
-    "test": "jest"
-  },
-  "dependencies": {
-    "excalibur": "^0.25.3"
-  },
-  "devDependencies": {
-    "@types/jest": "^27.4.0",
-    "jest": "^27.5.1",
-    "parcel": "^2.3.1"
-  }
+	"name": "pang",
+	"version": "0.1.0",
+	"author": {
+		"name": "Mateusz Wojtyna"
+	},
+	"source": "src/index.html",
+	"scripts": {
+		"start": "npx parcel",
+		"build": "npx parcel build",
+		"test": "jest"
+	},
+	"dependencies": {
+		"excalibur": "^0.25.3"
+	},
+	"devDependencies": {
+		"@excaliburjs/dev-tools": "^0.25.3",
+		"@types/jest": "^27.4.0",
+		"@types/parcel-env": "^0.0.1",
+		"jest": "^27.5.1",
+		"parcel": "^2.3.1"
+	}
 }
