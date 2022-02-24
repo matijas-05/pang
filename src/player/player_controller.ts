@@ -12,7 +12,7 @@ export class Player extends ex.Actor {
 			name: "Player",
 			width: 30,
 			height: 100,
-			color: ex.Color.Red,
+			color: ex.Color.Blue,
 			collisionType: ex.CollisionType.Fixed,
 		});
 	}

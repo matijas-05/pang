@@ -30,9 +30,12 @@ export class Anchor extends ex.Actor {
 			ctx.scaleTo(ex.vec(1, ++newScale), ex.vec(1, this.speed));
 		})
 
-		// Reset when collided with anything other than the player
+		// Handle collision
 		this.on("collisionstart", (col) => {
-			if(!col.other.hasTag(Tags.Player))
+			if (col.other.hasTag(Tags.Destructible))
+				col.other.kill();
+
+			if (!col.other.hasTag(Tags.Player))
 				this.reset();
 		});
 	}
