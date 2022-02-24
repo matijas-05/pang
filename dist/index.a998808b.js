@@ -32541,18 +32541,7 @@ class Player extends _excalibur.Actor {
     }
 }
 
-},{"excalibur":"bDskv","../game":"edeGs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../utils/tags":"tJXqS","./anchor":"kpqqZ"}],"tJXqS":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>Tags
-);
-class Tags {
-    static get Player() {
-        return "Player";
-    }
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kpqqZ":[function(require,module,exports) {
+},{"excalibur":"bDskv","../game":"edeGs","./anchor":"kpqqZ","../utils/tags":"tJXqS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kpqqZ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Anchor", ()=>Anchor
@@ -32598,7 +32587,18 @@ class Anchor extends _excalibur.Actor {
     }
 }
 
-},{"excalibur":"bDskv","../game":"edeGs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../utils/tags":"tJXqS"}],"8JOey":[function(require,module,exports) {
+},{"excalibur":"bDskv","../utils/tags":"tJXqS","../game":"edeGs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"tJXqS":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "default", ()=>Tags
+);
+class Tags {
+    static get Player() {
+        return "Player";
+    }
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8JOey":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Ground", ()=>Ground
