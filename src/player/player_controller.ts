@@ -4,7 +4,7 @@ import { Anchor } from "./anchor";
 import Tags from "../utils/tags";
 
 export class Player extends ex.Actor {
-	get movementSpeed() { return 50 };
+	get speed() { return 5 };
 	weapon = new Anchor();
 
 	constructor() {
@@ -23,15 +23,11 @@ export class Player extends ex.Actor {
 		_engine.add(this.weapon);
 	}
 	update(engine: ex.Engine, delta: number): void {
-		// Needed for 'actions' to work
-		super.update(engine, delta);
-
 		this.movement(engine, delta);
 		this.shooting(engine);
 	}
 
 	movement(engine: ex.Engine, delta: number): void {
-		this.actions.clearActions();
 		let movement = 0;
 
 		// Prevent player from leaving the screen
@@ -44,7 +40,7 @@ export class Player extends ex.Actor {
 			movement = -1;
 		}
 
-		this.actions.moveBy(movement, 0, this.movementSpeed * delta);
+		this.pos = this.pos.add(ex.vec(movement * this.speed, 0));
 	}
 	shooting(engine: ex.Engine): void {
 		if (engine.input.keyboard.wasPressed(ex.Input.Keys.W)) {

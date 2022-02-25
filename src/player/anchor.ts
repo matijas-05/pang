@@ -1,6 +1,6 @@
 import * as ex from "excalibur";
 import Tags from "../utils/tags";
-import { game, player } from "../game";
+import { player } from "../game";
 
 export class Anchor extends ex.Actor {
 
