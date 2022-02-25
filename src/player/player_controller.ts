@@ -4,7 +4,7 @@ import { Anchor } from "./anchor";
 import Tags from "../utils/tags";
 
 export class Player extends ex.Actor {
-	get speed() { return 5 };
+	get speed() { return 0.35 };
 	weapon = new Anchor();
 
 	constructor() {
@@ -40,7 +40,7 @@ export class Player extends ex.Actor {
 			movement = -1;
 		}
 
-		this.pos = this.pos.add(ex.vec(movement * this.speed, 0));
+		this.pos = this.pos.add(ex.vec(movement * this.speed * delta, 0));
 	}
 	shooting(engine: ex.Engine): void {
 		if (engine.input.keyboard.wasPressed(ex.Input.Keys.W)) {
