@@ -6,7 +6,7 @@
 	},
 	"source": "src/index.html",
 	"scripts": {
-		"start": "npx parcel",
+		"start": "npx parcel --public-url ./",
 		"build": "npx parcel build",
 		"test": "jest"
 	},
