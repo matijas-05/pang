@@ -35,6 +35,6 @@ game.add(player);
 game.add(ground);
 game.add(ball);
 
-// // Setup physics
-// ex.Physics.useArcadePhysics();
-// ex.Physics.acc = ex.vec(0, 9.807);
+// Setup physics
+ex.Physics.useRealisticPhysics();
+ex.Physics.acc = ex.vec(0, 300);

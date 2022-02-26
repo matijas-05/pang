@@ -556,9 +556,10 @@ const ground = new _ground.Ground();
 const ball = new _ball.Ball();
 game.add(player);
 game.add(ground);
-game.add(ball); // // Setup physics
- // ex.Physics.useArcadePhysics();
- // ex.Physics.acc = ex.vec(0, 9.807);
+game.add(ball);
+// Setup physics
+_excalibur.Physics.useRealisticPhysics();
+_excalibur.Physics.acc = _excalibur.vec(0, 300);
 
 },{"excalibur":"bDskv","@excaliburjs/dev-tools":"jinSO","./player/player_controller":"hM2gv","./environment/ground":"8JOey","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./environment/ball":"cNhuB"}],"bDskv":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -33220,12 +33221,19 @@ class Ball extends _excalibur.Actor {
             name: "Ball",
             radius: 25,
             color: _excalibur.Color.Red,
-            collisionType: _excalibur.CollisionType.Fixed,
+            collisionType: _excalibur.CollisionType.Active,
             pos: _excalibur.vec(100, 100)
         });
     }
     onInitialize(_engine) {
         this.addTag(_tagsDefault.default.Destructible);
+    // this.body.bounciness = 1;
+    }
+    update(_engine, _delta) {
+        this.on("collisionstart", (e)=>{
+            // this.body.vel = ex.Vector.Zero;
+            this.body.applyImpulse(this.pos, e.contact.normal.scale(-10));
+        });
     }
 }
 
