@@ -1,6 +1,6 @@
 import * as ex from "excalibur";
 import { DevTool } from "@excaliburjs/dev-tools"
-import { Player } from "./player/player_controller";
+import { Player } from "./player/playerController";
 import { Ground } from "./environment/ground";
 import { Ball } from "./environment/ball";
 import "regenerator-runtime/runtime" // Force parcel to understand async/await inside excalibur

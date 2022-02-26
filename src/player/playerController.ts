@@ -4,7 +4,7 @@ import { Anchor } from "./anchor";
 import Tags from "../utils/tags";
 
 export class Player extends ex.Actor {
-	get speed() { return 0.35 };
+	speed = 0.35;
 	weapon = new Anchor();
 
 	constructor() {
