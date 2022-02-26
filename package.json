@@ -6,8 +6,8 @@
 	},
 	"source": "src/index.html",
 	"scripts": {
-		"start": "npx parcel",
-		"build": "npx parcel build",
+		"start": "npx parcel --dist-dir build/",
+		"build": "npx parcel build --dist-dir release/",
 		"test": "jest"
 	},
 	"dependencies": {

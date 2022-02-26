@@ -142,13 +142,13 @@
       this[globalName] = mainExports;
     }
   }
-})({"f9UgV":[function(require,module,exports) {
+})({"LzfMd":[function(require,module,exports) {
 "use strict";
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
-module.bundle.HMR_BUNDLE_ID = "f76c6955a998808b";
+module.bundle.HMR_BUNDLE_ID = "4c719e9aa7751306";
 function _toConsumableArray(arr) {
     return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
 }
@@ -32541,7 +32541,7 @@ class Player extends _excalibur.Actor {
     }
 }
 
-},{"excalibur":"bDskv","../game":"edeGs","./anchor":"kpqqZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../utils/tags":"tJXqS"}],"kpqqZ":[function(require,module,exports) {
+},{"excalibur":"bDskv","../game":"edeGs","./anchor":"kpqqZ","../utils/tags":"tJXqS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kpqqZ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Anchor", ()=>Anchor
@@ -32587,7 +32587,7 @@ class Anchor extends _excalibur.Actor {
     }
 }
 
-},{"excalibur":"bDskv","../game":"edeGs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../utils/tags":"tJXqS"}],"tJXqS":[function(require,module,exports) {
+},{"excalibur":"bDskv","../utils/tags":"tJXqS","../game":"edeGs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"tJXqS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>Tags
@@ -33200,6 +33200,6 @@ try {
     else Function("r", "regeneratorRuntime = r")(runtime);
 }
 
-},{}]},["f9UgV","edeGs"], "edeGs", "parcelRequirea580")
+},{}]},["LzfMd","edeGs"], "edeGs", "parcelRequirea580")
 
-//# sourceMappingURL=index.a998808b.js.map
+//# sourceMappingURL=index.a7751306.js.map
