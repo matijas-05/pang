@@ -1,7 +1,9 @@
 import * as ex from "excalibur"
 import Tags from "../utils/tags";
 
-export class Ball extends ex.Actor {
+export default class Ball extends ex.Actor {
+	bounceForce = 5000;
+
 	constructor() {
 		super({
 			name: "Ball",
@@ -13,13 +15,11 @@ export class Ball extends ex.Actor {
 	}
 	onInitialize(_engine: ex.Engine): void {
 		this.addTag(Tags.Destructible);
-		// this.body.bounciness = 1;
-	}
-
-	update(_engine: ex.Engine, _delta: number): void {
-		this.on("collisionstart", e => {
-			// this.body.vel = ex.Vector.Zero;
-			this.body.applyImpulse(this.pos, e.contact.normal.scale(-10));
+		
+		// Override default bouncing behaviour
+		this.body.bounciness = 0;
+		this.on("collisionstart", col => {
+			this.body.applyImpulse(this.pos, col.contact.normal.scale(-this.bounceForce));
 		});
 	}
 }

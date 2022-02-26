@@ -3,7 +3,7 @@ import { game } from "../game";
 import { Anchor } from "./anchor";
 import Tags from "../utils/tags";
 
-export class Player extends ex.Actor {
+export default class Player extends ex.Actor {
 	speed = 0.35;
 	weapon = new Anchor();
 

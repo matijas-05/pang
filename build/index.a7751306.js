@@ -531,9 +531,12 @@ parcelHelpers.export(exports, "ball", ()=>ball
 );
 var _excalibur = require("excalibur");
 var _devTools = require("@excaliburjs/dev-tools");
-var _playerController = require("./player/player_controller");
+var _playerController = require("./player/playerController");
+var _playerControllerDefault = parcelHelpers.interopDefault(_playerController);
 var _ground = require("./environment/ground");
+var _groundDefault = parcelHelpers.interopDefault(_ground);
 var _ball = require("./environment/ball");
+var _ballDefault = parcelHelpers.interopDefault(_ball);
 var _runtime = require("regenerator-runtime/runtime"); // Force parcel to understand async/await inside excalibur
 // Force parcel to reload page when saving .ts file
 if (module.hot) module.hot.dispose(()=>{
@@ -551,17 +554,17 @@ class Game extends _excalibur.Engine {
 const game = new Game();
 const devTool = new _devTools.DevTool(game);
 game.start();
-const player = new _playerController.Player();
-const ground = new _ground.Ground();
-const ball = new _ball.Ball();
+const player = new _playerControllerDefault.default();
+const ground = new _groundDefault.default();
+const ball = new _ballDefault.default();
 game.add(player);
 game.add(ground);
 game.add(ball);
 // Setup physics
-_excalibur.Physics.useRealisticPhysics();
+_excalibur.Physics.useArcadePhysics();
 _excalibur.Physics.acc = _excalibur.vec(0, 300);
 
-},{"excalibur":"bDskv","@excaliburjs/dev-tools":"jinSO","./player/player_controller":"hM2gv","./environment/ground":"8JOey","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./environment/ball":"cNhuB"}],"bDskv":[function(require,module,exports) {
+},{"excalibur":"bDskv","@excaliburjs/dev-tools":"jinSO","./environment/ground":"8JOey","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./environment/ball":"cNhuB","./player/playerController":"2zs1q"}],"bDskv":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ActionContext", ()=>__webpack_exports__ActionContext
@@ -32498,116 +32501,10 @@ exports.export = function(dest, destName, get) {
     })();
 });
 
-},{"excalibur":"bDskv"}],"hM2gv":[function(require,module,exports) {
+},{"excalibur":"bDskv"}],"8JOey":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Player", ()=>Player
-);
-var _excalibur = require("excalibur");
-var _game = require("../game");
-var _anchor = require("./anchor");
-var _tags = require("../utils/tags");
-var _tagsDefault = parcelHelpers.interopDefault(_tags);
-class Player extends _excalibur.Actor {
-    get speed() {
-        return 0.35;
-    }
-    constructor(){
-        super({
-            name: "Player",
-            width: 30,
-            height: 100,
-            color: _excalibur.Color.Blue,
-            collisionType: _excalibur.CollisionType.Fixed
-        });
-        this.weapon = new _anchor.Anchor();
-    }
-    onInitialize(_engine) {
-        this.transform.pos = _excalibur.vec(_engine.halfCanvasWidth, _engine.canvasHeight - this.height);
-        this.addTag(_tagsDefault.default.Player);
-        _engine.add(this.weapon);
-    }
-    update(engine, delta) {
-        this.movement(engine, delta);
-        this.shooting(engine);
-    }
-    movement(engine, delta) {
-        let movement = 0;
-        // Prevent player from leaving the screen
-        if (engine.input.keyboard.isHeld(_excalibur.Input.Keys.D) && this.pos.x < _game.game.canvasWidth - this.width / 2) movement = 1;
-        else if (engine.input.keyboard.isHeld(_excalibur.Input.Keys.A) && this.pos.x > this.width / 2) movement = -1;
-        this.pos = this.pos.add(_excalibur.vec(movement * this.speed * delta, 0));
-    }
-    shooting(engine) {
-        if (engine.input.keyboard.wasPressed(_excalibur.Input.Keys.W)) this.weapon.shoot();
-    }
-}
-
-},{"excalibur":"bDskv","../game":"edeGs","./anchor":"kpqqZ","../utils/tags":"tJXqS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kpqqZ":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Anchor", ()=>Anchor
-);
-var _excalibur = require("excalibur");
-var _tags = require("../utils/tags");
-var _tagsDefault = parcelHelpers.interopDefault(_tags);
-var _game = require("../game");
-class Anchor extends _excalibur.Actor {
-    get speed() {
-        return 10;
-    }
-    constructor(){
-        super({
-            name: "Anchor",
-            width: 10,
-            height: 100,
-            color: _excalibur.Color.Gray,
-            visible: false,
-            z: -1
-        });
-    }
-    update(_engine) {
-        if (!this.actions.getQueue().hasNext()) this.pos = _game.player.pos;
-        if (this.pos.y < this.height / 2) this.reset(); // Also reset when reached top edge of the screen
-    }
-    shoot() {
-        this.graphics.visible = true;
-        // Stretch anchor vertically until it collides
-        let newScale = 0;
-        this.actions.repeatForever((ctx)=>{
-            ctx.scaleTo(_excalibur.vec(1, ++newScale), _excalibur.vec(1, this.speed));
-        });
-        // Handle collision
-        this.on("collisionstart", (col)=>{
-            if (col.other.hasTag(_tagsDefault.default.Destructible)) col.other.kill();
-            if (!col.other.hasTag(_tagsDefault.default.Player)) this.reset();
-        });
-    }
-    reset() {
-        this.graphics.visible = false;
-        this.scale = _excalibur.Vector.One;
-        this.actions.clearActions();
-    }
-}
-
-},{"excalibur":"bDskv","../utils/tags":"tJXqS","../game":"edeGs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"tJXqS":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>Tags
-);
-class Tags {
-    static get Player() {
-        return "Player";
-    }
-    static get Destructible() {
-        return "Destructible";
-    }
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8JOey":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Ground", ()=>Ground
+parcelHelpers.export(exports, "default", ()=>Ground
 );
 var _excalibur = require("excalibur");
 var _game = require("../game");
@@ -33206,11 +33103,10 @@ try {
     else Function("r", "regeneratorRuntime = r")(runtime);
 }
 
-<<<<<<< HEAD:dist/index.a998808b.js
 },{}],"cNhuB":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Ball", ()=>Ball
+parcelHelpers.export(exports, "default", ()=>Ball
 );
 var _excalibur = require("excalibur");
 var _tags = require("../utils/tags");
@@ -33224,22 +33120,122 @@ class Ball extends _excalibur.Actor {
             collisionType: _excalibur.CollisionType.Active,
             pos: _excalibur.vec(100, 100)
         });
+        this.bounceForce = 5000;
     }
     onInitialize(_engine) {
         this.addTag(_tagsDefault.default.Destructible);
-    // this.body.bounciness = 1;
-    }
-    update(_engine, _delta) {
-        this.on("collisionstart", (e)=>{
-            // this.body.vel = ex.Vector.Zero;
-            this.body.applyImpulse(this.pos, e.contact.normal.scale(-10));
+        // Override default bouncing behaviour
+        this.body.bounciness = 0;
+        this.on("collisionstart", (col)=>{
+            this.body.applyImpulse(this.pos, col.contact.normal.scale(-this.bounceForce));
         });
     }
 }
 
-},{"excalibur":"bDskv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../utils/tags":"tJXqS"}]},["f9UgV","edeGs"], "edeGs", "parcelRequirea580")
-=======
-},{}]},["LzfMd","edeGs"], "edeGs", "parcelRequirea580")
->>>>>>> develop:build/index.a7751306.js
+},{"excalibur":"bDskv","../utils/tags":"tJXqS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"tJXqS":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "default", ()=>Tags
+);
+class Tags {
+    static get Player() {
+        return "Player";
+    }
+    static get Destructible() {
+        return "Destructible";
+    }
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2zs1q":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "default", ()=>Player
+);
+var _excalibur = require("excalibur");
+var _game = require("../game");
+var _anchor = require("./anchor");
+var _tags = require("../utils/tags");
+var _tagsDefault = parcelHelpers.interopDefault(_tags);
+class Player extends _excalibur.Actor {
+    constructor(){
+        super({
+            name: "Player",
+            width: 30,
+            height: 100,
+            color: _excalibur.Color.Blue,
+            collisionType: _excalibur.CollisionType.Fixed
+        });
+        this.speed = 0.35;
+        this.weapon = new _anchor.Anchor();
+    }
+    onInitialize(_engine) {
+        this.transform.pos = _excalibur.vec(_engine.halfCanvasWidth, _engine.canvasHeight - this.height);
+        this.addTag(_tagsDefault.default.Player);
+        _engine.add(this.weapon);
+    }
+    update(engine, delta) {
+        this.movement(engine, delta);
+        this.shooting(engine);
+    }
+    movement(engine, delta) {
+        let movement = 0;
+        // Prevent player from leaving the screen
+        if (engine.input.keyboard.isHeld(_excalibur.Input.Keys.D) && this.pos.x < _game.game.canvasWidth - this.width / 2) movement = 1;
+        else if (engine.input.keyboard.isHeld(_excalibur.Input.Keys.A) && this.pos.x > this.width / 2) movement = -1;
+        this.pos = this.pos.add(_excalibur.vec(movement * this.speed * delta, 0));
+    }
+    shooting(engine) {
+        if (engine.input.keyboard.wasPressed(_excalibur.Input.Keys.W)) this.weapon.shoot();
+    }
+}
+
+},{"excalibur":"bDskv","../game":"edeGs","./anchor":"kpqqZ","../utils/tags":"tJXqS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kpqqZ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Anchor", ()=>Anchor
+);
+var _excalibur = require("excalibur");
+var _tags = require("../utils/tags");
+var _tagsDefault = parcelHelpers.interopDefault(_tags);
+var _game = require("../game");
+class Anchor extends _excalibur.Actor {
+    get speed() {
+        return 10;
+    }
+    constructor(){
+        super({
+            name: "Anchor",
+            width: 10,
+            height: 100,
+            color: _excalibur.Color.Gray,
+            visible: false,
+            z: -1
+        });
+    }
+    update(_engine) {
+        if (!this.actions.getQueue().hasNext()) this.pos = _game.player.pos;
+        if (this.pos.y < this.height / 2) this.reset(); // Also reset when reached top edge of the screen
+    }
+    shoot() {
+        this.graphics.visible = true;
+        // Stretch anchor vertically until it collides
+        let newScale = 0;
+        this.actions.repeatForever((ctx)=>{
+            ctx.scaleTo(_excalibur.vec(1, ++newScale), _excalibur.vec(1, this.speed));
+        });
+        // Handle collision
+        this.on("collisionstart", (col)=>{
+            if (col.other.hasTag(_tagsDefault.default.Destructible)) col.other.kill();
+            if (!col.other.hasTag(_tagsDefault.default.Player)) this.reset();
+        });
+    }
+    reset() {
+        this.graphics.visible = false;
+        this.scale = _excalibur.Vector.One;
+        this.actions.clearActions();
+    }
+}
+
+},{"excalibur":"bDskv","../utils/tags":"tJXqS","../game":"edeGs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["LzfMd","edeGs"], "edeGs", "parcelRequirea580")
 
 //# sourceMappingURL=index.a7751306.js.map

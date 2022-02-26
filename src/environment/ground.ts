@@ -1,7 +1,7 @@
 import * as ex from "excalibur";
 import { game } from "../game";
 
-export class Ground extends ex.Actor {
+export default class Ground extends ex.Actor {
     constructor() {
         super({
             name: "Ground",

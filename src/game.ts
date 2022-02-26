@@ -1,8 +1,8 @@
 import * as ex from "excalibur";
 import { DevTool } from "@excaliburjs/dev-tools"
-import { Player } from "./player/playerController";
-import { Ground } from "./environment/ground";
-import { Ball } from "./environment/ball";
+import Player from "./player/playerController";
+import Ground from "./environment/ground";
+import Ball from "./environment/ball";
 import "regenerator-runtime/runtime" // Force parcel to understand async/await inside excalibur
 
 // Force parcel to reload page when saving .ts file
@@ -36,5 +36,5 @@ game.add(ground);
 game.add(ball);
 
 // Setup physics
-ex.Physics.useRealisticPhysics();
+ex.Physics.useArcadePhysics();
 ex.Physics.acc = ex.vec(0, 300);
