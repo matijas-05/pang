@@ -8,13 +8,8 @@
 		"module": "ESNext" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'. */,
 		/* Specify library files to be included in the compilation. */
 		"lib": [
-			"dom",
-			"es5",
-			"es2015.Proxy",
-			"es2015.promise",
-			"es2015.collection",
-			"es2015.iterable",
-			"es2015"
+			"DOM",
+			"ESNext"
 		],
 
 		/* Strict Type-Checking Options */
