@@ -17,6 +17,9 @@ export class Anchor extends ex.Actor {
 		})
 	}
 
+	onInitialize(_engine: ex.Engine): void {
+		this.addTag(Tags.NoCollision);
+	}
 	update(_engine: ex.Engine): void {
 		if (!this.actions.getQueue().hasNext()) this.pos = player.pos;
 		if (this.pos.y < this.height / 2) this.reset();		// Also reset when reached top edge of the screen
