@@ -20,7 +20,7 @@ export default class Ball extends ex.Actor {
 		this.body.friction = 0;
 		this.body.limitDegreeOfFreedom = [ex.DegreeOfFreedom.Rotation];
 		this.on("collisionstart", col => {
-			if(col.other.hasTag(Tags.NoCollision))
+			if(col.other.hasTag(Tags.NoBounce))
 			return;
 
 			const normal = col.contact.normal;

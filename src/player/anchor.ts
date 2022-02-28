@@ -18,7 +18,7 @@ export class Anchor extends ex.Actor {
 	}
 
 	onInitialize(_engine: ex.Engine): void {
-		this.addTag(Tags.NoCollision);
+		this.addTag(Tags.NoBounce);
 	}
 	update(_engine: ex.Engine): void {
 		if (!this.actions.getQueue().hasNext()) this.pos = player.pos;

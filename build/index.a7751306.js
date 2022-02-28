@@ -32577,7 +32577,7 @@ class Anchor extends _excalibur.Actor {
         });
     }
     onInitialize(_engine) {
-        this.addTag(_tagsDefault.default.NoCollision);
+        this.addTag(_tagsDefault.default.NoBounce);
     }
     update(_engine) {
         if (!this.actions.getQueue().hasNext()) this.pos = _game.player.pos;
@@ -32615,8 +32615,8 @@ class Tags {
     static get Destructible() {
         return "Destructible";
     }
-    static get NoCollision() {
-        return "NoCollision";
+    static get NoBounce() {
+        return "NoBounce";
     }
 }
 
@@ -32670,7 +32670,7 @@ class Ball extends _excalibur.Actor {
             _excalibur.DegreeOfFreedom.Rotation
         ];
         this.on("collisionstart", (col)=>{
-            if (col.other.hasTag(_tagsDefault.default.NoCollision)) return;
+            if (col.other.hasTag(_tagsDefault.default.NoBounce)) return;
             const normal = col.contact.normal;
             const newVel = _excalibur.vec(this.oldVel.x - 2 * Math.round(normal.x) * Math.abs(this.oldVel.x), this.oldVel.y - 2 * Math.round(normal.y) * Math.abs(this.oldVel.y));
             this.vel = newVel;
