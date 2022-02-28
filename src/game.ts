@@ -8,9 +8,7 @@ import "regenerator-runtime/runtime" // Force parcel to understand async/await i
 
 // Force parcel to reload page when saving .ts file
 if (module.hot) {
-	module.hot.dispose(() => {
-		window.location.reload();
-	})
+	module.hot.dispose(() => window.location.reload());
 }
 
 class Game extends ex.Engine {
@@ -25,6 +23,7 @@ class Game extends ex.Engine {
 
 // Start game
 export const game = new Game();
+const mainScene = new ex.Scene();
 const devTool = new DevTool(game);
 game.start();
 

@@ -20,13 +20,18 @@ export default class Ball extends ex.Actor {
 		this.body.friction = 0;
 		this.body.limitDegreeOfFreedom = [ex.DegreeOfFreedom.Rotation];
 		this.on("collisionstart", col => {
-			if(col.other.hasTag(Tags.NoBounce))
-			return;
+			if (col.other.hasTag(Tags.NoBounce))
+				return;
+
+			// Game over if ball touches player
+			if (col.other.hasTag(Tags.Player)) {
+				window.location.reload();
+			}
 
 			const normal = col.contact.normal;
 			const newVel = ex.vec(this.oldVel.x - 2 * Math.round(normal.x) * Math.abs(this.oldVel.x), this.oldVel.y - 2 * Math.round(normal.y) * Math.abs(this.oldVel.y));
 			this.vel = newVel;
-			console.log(`normal: ${normal}, oldVel: ${this.oldVel}, newVel: ${newVel}`);
+			// console.log(`normal: ${normal}, oldVel: ${this.oldVel}, newVel: ${newVel}`);
 		});
 	}
 }

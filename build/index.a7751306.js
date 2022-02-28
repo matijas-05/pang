@@ -542,9 +542,8 @@ var _ballDefault = parcelHelpers.interopDefault(_ball);
 var _screenEdges = require("./environment/screenEdges");
 var _runtime = require("regenerator-runtime/runtime"); // Force parcel to understand async/await inside excalibur
 // Force parcel to reload page when saving .ts file
-if (module.hot) module.hot.dispose(()=>{
-    window.location.reload();
-});
+if (module.hot) module.hot.dispose(()=>window.location.reload()
+);
 class Game extends _excalibur.Engine {
     constructor(){
         super({
@@ -555,6 +554,7 @@ class Game extends _excalibur.Engine {
     }
 }
 const game = new Game();
+const mainScene = new _excalibur.Scene();
 const devTool = new _devTools.DevTool(game);
 game.start();
 const player = new _playerControllerDefault.default();
@@ -32671,10 +32671,12 @@ class Ball extends _excalibur.Actor {
         ];
         this.on("collisionstart", (col)=>{
             if (col.other.hasTag(_tagsDefault.default.NoBounce)) return;
+            // Game over if ball touches player
+            if (col.other.hasTag(_tagsDefault.default.Player)) window.location.reload();
             const normal = col.contact.normal;
             const newVel = _excalibur.vec(this.oldVel.x - 2 * Math.round(normal.x) * Math.abs(this.oldVel.x), this.oldVel.y - 2 * Math.round(normal.y) * Math.abs(this.oldVel.y));
             this.vel = newVel;
-            console.log(`normal: ${normal}, oldVel: ${this.oldVel}, newVel: ${newVel}`);
+        // console.log(`normal: ${normal}, oldVel: ${this.oldVel}, newVel: ${newVel}`);
         });
     }
 }
