@@ -559,7 +559,7 @@ const devTool = new _devTools.DevTool(game);
 game.start();
 const player = new _playerControllerDefault.default();
 const ground = new _groundDefault.default();
-const ball = new _ballDefault.default(50);
+const ball = new _ballDefault.default(_excalibur.vec(50, 100), _excalibur.vec(1000, 0), 50, 0);
 const screenEdges = [
     new _screenEdges.RightScreenEdge(),
     new _screenEdges.LeftScreenEdge(),
@@ -32530,7 +32530,7 @@ class Player extends _excalibur.Actor {
             collisionType: _excalibur.CollisionType.Fixed
         });
         this.speed = 0.35;
-        this.weapon = new _weapon.Anchor();
+        this.weapon = new _weapon.Weapon();
     }
     onInitialize(_engine) {
         this.transform.pos = _excalibur.vec(_engine.halfCanvasWidth, _engine.canvasHeight - this.height);
@@ -32573,13 +32573,13 @@ class Tags {
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2LSDz":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Anchor", ()=>Anchor
+parcelHelpers.export(exports, "Weapon", ()=>Weapon
 );
 var _excalibur = require("excalibur");
 var _tags = require("../utils/tags");
 var _tagsDefault = parcelHelpers.interopDefault(_tags);
 var _game = require("../game");
-class Anchor extends _excalibur.Actor {
+class Weapon extends _excalibur.Actor {
     get speed() {
         return 10;
     }
@@ -32598,7 +32598,6 @@ class Anchor extends _excalibur.Actor {
     }
     update(_engine) {
         if (!this.actions.getQueue().hasNext()) this.pos = _game.player.pos;
-        if (this.pos.y < this.height / 2) this.reset(); // Also reset when reached top edge of the screen
     }
     shoot() {
         this.graphics.visible = true;
@@ -32648,21 +32647,25 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>Ball
 );
 var _excalibur = require("excalibur");
+var _game = require("../game");
 var _tags = require("../utils/tags");
 var _tagsDefault = parcelHelpers.interopDefault(_tags);
 class Ball extends _excalibur.Actor {
-    constructor(radius){
+    constructor(initialPos = _excalibur.vec(0, 0), initialVelocity, radius, childIndex){
         super({
-            name: "Ball",
+            name: `Ball (childIndex: ${childIndex})`,
             radius: radius,
             color: _excalibur.Color.Red,
             collisionType: _excalibur.CollisionType.Active,
-            pos: _excalibur.vec(radius, 100)
+            pos: initialPos
         });
+        this.initialVelocity = initialVelocity;
+        this.childIndex = childIndex;
     }
     onInitialize(_engine) {
+        console.log(_game.game.currentScene.actors);
         this.addTag(_tagsDefault.default.Destructible);
-        this.body.applyImpulse(this.pos, _excalibur.vec(1, 0).scale(500));
+        this.body.applyImpulse(this.pos, this.initialVelocity);
         // Override default bouncing behaviour
         this.body.bounciness = 0;
         this.body.friction = 0;
@@ -32679,9 +32682,21 @@ class Ball extends _excalibur.Actor {
         // console.log(`normal: ${normal}, oldVel: ${this.oldVel}, newVel: ${newVel}`);
         });
     }
+    kill() {
+        // TODO: Fix balls dividing into increasingly bigger numbers with childIndex >= 2
+        if (this.childIndex === 1) {
+            super.kill();
+            return;
+        }
+        const radius = this.collider.get().radius;
+        _game.game.add(new Ball(_excalibur.vec(this.pos.x - radius / 2, this.pos.y), this.initialVelocity.scale(-1 / (this.childIndex + 1)), radius / 2, this.childIndex + 1));
+        _game.game.add(new Ball(_excalibur.vec(this.pos.x + radius / 2, this.pos.y), this.initialVelocity.scale(1 / (this.childIndex + 1)), radius / 2, this.childIndex + 1));
+        console.log(`added child ${this.childIndex + 1}`);
+        super.kill();
+    }
 }
 
-},{"excalibur":"bDskv","../utils/tags":"tJXqS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7WW4Y":[function(require,module,exports) {
+},{"excalibur":"bDskv","../utils/tags":"tJXqS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../game":"edeGs"}],"7WW4Y":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "TopScreenEdge", ()=>TopScreenEdge

@@ -30,8 +30,8 @@ game.start();
 // Add actors
 export const player = new Player();
 export const ground = new Ground();
-export const ball = new Ball(50);
-export const screenEdges = [new RightScreenEdge(), new LeftScreenEdge(), new TopScreenEdge()]
+export const ball = new Ball(ex.vec(50, 100), ex.vec(1000, 0), 50, 0);
+export const screenEdges = [new RightScreenEdge(), new LeftScreenEdge(), new TopScreenEdge()];
 
 game.add(player);
 game.add(ground);

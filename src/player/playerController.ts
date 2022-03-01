@@ -1,11 +1,11 @@
 import * as ex from "excalibur";
 import { game } from "../game";
-import { Anchor } from "./weapon";
+import { Weapon } from "./weapon";
 import Tags from "../utils/tags";
 
 export default class Player extends ex.Actor {
 	private speed = 0.35;
-	private weapon = new Anchor();
+	private weapon = new Weapon();
 
 	constructor() {
 		super({

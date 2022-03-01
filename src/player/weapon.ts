@@ -2,7 +2,7 @@ import * as ex from "excalibur";
 import Tags from "../utils/tags";
 import { player } from "../game";
 
-export class Anchor extends ex.Actor {
+export class Weapon extends ex.Actor {
 
 	private get speed() { return 10; }
 
@@ -22,7 +22,6 @@ export class Anchor extends ex.Actor {
 	}
 	update(_engine: ex.Engine): void {
 		if (!this.actions.getQueue().hasNext()) this.pos = player.pos;
-		if (this.pos.y < this.height / 2) this.reset();		// Also reset when reached top edge of the screen
 	}
 	shoot() {
 		this.graphics.visible = true;
