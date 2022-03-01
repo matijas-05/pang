@@ -32517,7 +32517,7 @@ parcelHelpers.export(exports, "default", ()=>Player
 );
 var _excalibur = require("excalibur");
 var _game = require("../game");
-var _anchor = require("./anchor");
+var _weapon = require("./weapon");
 var _tags = require("../utils/tags");
 var _tagsDefault = parcelHelpers.interopDefault(_tags);
 class Player extends _excalibur.Actor {
@@ -32530,7 +32530,7 @@ class Player extends _excalibur.Actor {
             collisionType: _excalibur.CollisionType.Fixed
         });
         this.speed = 0.35;
-        this.weapon = new _anchor.Anchor();
+        this.weapon = new _weapon.Anchor();
     }
     onInitialize(_engine) {
         this.transform.pos = _excalibur.vec(_engine.halfCanvasWidth, _engine.canvasHeight - this.height);
@@ -32553,7 +32553,24 @@ class Player extends _excalibur.Actor {
     }
 }
 
-},{"excalibur":"bDskv","../game":"edeGs","./anchor":"kpqqZ","../utils/tags":"tJXqS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kpqqZ":[function(require,module,exports) {
+},{"excalibur":"bDskv","../game":"edeGs","../utils/tags":"tJXqS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./weapon":"2LSDz"}],"tJXqS":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "default", ()=>Tags
+);
+class Tags {
+    static get Player() {
+        return "Player";
+    }
+    static get Destructible() {
+        return "Destructible";
+    }
+    static get NoBounce() {
+        return "NoBounce";
+    }
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2LSDz":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Anchor", ()=>Anchor
@@ -32603,24 +32620,7 @@ class Anchor extends _excalibur.Actor {
     }
 }
 
-},{"excalibur":"bDskv","../utils/tags":"tJXqS","../game":"edeGs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"tJXqS":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>Tags
-);
-class Tags {
-    static get Player() {
-        return "Player";
-    }
-    static get Destructible() {
-        return "Destructible";
-    }
-    static get NoBounce() {
-        return "NoBounce";
-    }
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8JOey":[function(require,module,exports) {
+},{"excalibur":"bDskv","../utils/tags":"tJXqS","../game":"edeGs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8JOey":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>Ground

@@ -4,7 +4,7 @@ import { player } from "../game";
 
 export class Anchor extends ex.Actor {
 
-	get speed() { return 10; }
+	private get speed() { return 10; }
 
 	constructor() {
 		super({
@@ -43,7 +43,7 @@ export class Anchor extends ex.Actor {
 		});
 	}
 
-	reset() {
+	private reset() {
 		this.graphics.visible = false;
 		this.scale = ex.Vector.One;
 		this.actions.clearActions();

@@ -1,11 +1,11 @@
 import * as ex from "excalibur";
 import { game } from "../game";
-import { Anchor } from "./anchor";
+import { Anchor } from "./weapon";
 import Tags from "../utils/tags";
 
 export default class Player extends ex.Actor {
-	speed = 0.35;
-	weapon = new Anchor();
+	private speed = 0.35;
+	private weapon = new Anchor();
 
 	constructor() {
 		super({
@@ -27,7 +27,7 @@ export default class Player extends ex.Actor {
 		this.shooting(engine);
 	}
 
-	movement(engine: ex.Engine, delta: number): void {
+	private movement(engine: ex.Engine, delta: number): void {
 		let movement = 0;
 
 		// Prevent player from leaving the screen
@@ -42,7 +42,7 @@ export default class Player extends ex.Actor {
 
 		this.pos = this.pos.add(ex.vec(movement * this.speed * delta, 0));
 	}
-	shooting(engine: ex.Engine): void {
+	private shooting(engine: ex.Engine): void {
 		if (engine.input.keyboard.wasPressed(ex.Input.Keys.W)) {
 			this.weapon.shoot();
 		}
